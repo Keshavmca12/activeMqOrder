@@ -1,6 +1,5 @@
 package com.configuration;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.apache.activemq.spring.ActiveMQConnectionFactory;

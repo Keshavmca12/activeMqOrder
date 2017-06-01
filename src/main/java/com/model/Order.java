@@ -2,17 +2,44 @@ package com.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name="order_info")
 public class Order implements Serializable {
  
-    private String orderId;
-     
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
+	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	@Column(name="order_id")
+	private String orderId;
+	@Column(name="product_name")
     private String productName;
- 
+	@Column(name="quantity")
     private int quantity;
- 
+	@Enumerated(EnumType.STRING)
     private OrderStatus status;
- 
-    public String getOrderId() {
+	
+    public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getOrderId() {
         return orderId;
     }
  
@@ -78,3 +105,5 @@ public class Order implements Serializable {
  
      
 }
+
+//Transaction ID:  100000858543718

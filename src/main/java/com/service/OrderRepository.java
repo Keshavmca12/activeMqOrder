@@ -1,6 +1,7 @@
 package com.service;
 
 
+import java.util.List;
 import java.util.Map;
 
 import com.model.Order;
@@ -12,4 +13,6 @@ public interface OrderRepository {
     public Order getOrder(String orderId);
      
     public Map<String, Order> getAllOrders();
+    
+    public List<Order> getAllOrdersFromDataBase();
 }

@@ -2,12 +2,35 @@ package com.model;
 
 
 import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
  
 public class InventoryResponse implements Serializable{
  
-    private String orderId;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
+	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	int id;
+	@Column(name="order_id")
+	private String orderId;
+	@Column(name="return_code")
     private int returnCode;
+	@Column(name="comment")
     private String comment;
+    
+    public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
      
     public String getOrderId() {
         return orderId;

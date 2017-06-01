@@ -1,29 +1,51 @@
 package com.service;
 
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
- 
+
+import org.hibernate.FlushMode;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.stereotype.Service;
- 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.model.Order;
- 
+
 @Service("orderRepository")
-public class OrderRepositoryImpl implements OrderRepository{
- 
-    private final Map<String, Order> orders = new ConcurrentHashMap<String, Order>();
-     
-    @Override
-    public void putOrder(Order order) {
-        orders.put(order.getOrderId(), order);
-    }
- 
-    @Override
-    public Order getOrder(String orderId) {
-        return orders.get(orderId);
-    }
- 
-    public Map<String, Order> getAllOrders(){
-        return orders;
-    }
+public class OrderRepositoryImpl extends HibernateDaoSupport implements OrderRepository{
+	@Autowired
+	SessionFactory sessionFactory;
+
+	public OrderRepositoryImpl(SessionFactory sessionfactory){
+	    setSessionFactory(sessionfactory);
+	}
+
+	
+	private final Map<String, Order> orders = new ConcurrentHashMap<String, Order>();
+
+	@Override
+	@Transactional
+	public void putOrder(Order order) {
+		orders.put(order.getOrderId(), order);
+		getHibernateTemplate().save(order);
+	}
+
+	@Override
+	@Transactional(readOnly=false)
+	public Order getOrder(String orderId) {
+		System.out.println(getHibernateTemplate().get(Order.class,orderId));
+		return orders.get(orderId);
+	}
+	@Override
+	public Map<String, Order> getAllOrders(){
+		return orders;
+	}
+	@Override
+	@Transactional
+	public List<Order> getAllOrdersFromDataBase(){
+		return (List<Order>) getHibernateTemplate().find("from order", "");
+	}
 }
