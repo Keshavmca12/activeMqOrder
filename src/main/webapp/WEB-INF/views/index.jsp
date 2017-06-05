@@ -18,6 +18,10 @@
 				<a href="<c:url value='/newOrder' />">Place an order</a>
 			</span>
 	</div>
+	
+	<span class="">
+		<a href="<c:url value='/checkStatus' />">Check Status</a>
+	</span>
 
 </body>
 </html>

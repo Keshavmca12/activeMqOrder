@@ -34,7 +34,7 @@ public class OrderRepositoryImpl extends HibernateDaoSupport implements OrderRep
 	}
 
 	@Override
-	@Transactional(readOnly=false)
+	@Transactional
 	public Order getOrder(String orderId) {
 		System.out.println(getHibernateTemplate().get(Order.class,orderId));
 		return orders.get(orderId);
@@ -46,6 +46,6 @@ public class OrderRepositoryImpl extends HibernateDaoSupport implements OrderRep
 	@Override
 	@Transactional
 	public List<Order> getAllOrdersFromDataBase(){
-		return (List<Order>) getHibernateTemplate().find("from order", "");
+		return (List<Order>) sessionFactory.getCurrentSession().createCriteria(Order.class).list();
 	}
 }

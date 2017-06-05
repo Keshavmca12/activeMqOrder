@@ -1,5 +1,6 @@
 package com.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.model.InventoryResponse;
@@ -12,4 +13,6 @@ public interface OrderService {
     public void updateOrder(InventoryResponse response);
      
     public Map<String, Order> getAllOrders();
+    
+    public List<Order> getAllOrdersFromDataBase();
 }

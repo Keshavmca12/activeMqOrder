@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.google.gson.Gson;
 import com.model.Order;
 import com.service.OrderService;
  
@@ -47,6 +48,14 @@ public class AppController {
     @RequestMapping(value = { "/checkStatus" }, method = RequestMethod.GET)
     public String checkOrderStatus(ModelMap model) {
         model.addAttribute("orders", orderService.getAllOrders());
+        // create a new Gson instance
+        Gson gson = new Gson();
+        // convert your list to json
+        String jsonOrderList = gson.toJson(orderService.getAllOrdersFromDataBase());
+        // print your generated json
+        System.out.println("jsonOrderList  : " + jsonOrderList);
+        model.addAttribute("ordersDB", jsonOrderList);
+        System.out.println("orderService.getAllOrdersFromDataBase()  "+orderService.getAllOrdersFromDataBase());
         return "orderStatus";
     }
 }

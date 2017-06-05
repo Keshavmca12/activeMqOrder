@@ -1,4 +1,5 @@
 package com.service;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +45,14 @@ public class OrderServiceImpl implements OrderService{
         }
         orderRepository.putOrder(order);
     }
-     
+    @Override
     public Map<String, Order> getAllOrders(){
         return orderRepository.getAllOrders();
     }
+    @Override
+    public List<Order> getAllOrdersFromDataBase(){
+        return orderRepository.getAllOrdersFromDataBase();
+    }
+ 
  
 }
